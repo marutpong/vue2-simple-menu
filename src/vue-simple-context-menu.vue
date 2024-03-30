@@ -131,7 +131,7 @@ export default {
 <style lang="scss">
 $light-grey: #ecf0f1;
 $grey: darken($light-grey, 15%);
-$blue: #007aff;
+$blue: #4ab2e3;
 $white: #fff;
 $black: #333;
 
@@ -144,13 +144,13 @@ $black: #333;
   list-style: none;
   position: fixed;
   z-index: 1000000;
-  background-color: $light-grey;
+  background-color: $white;
   border-bottom-width: 0px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  box-shadow: 0 3px 6px 0 rgba($black, 0.2);
-  border-radius: 4px;
+  box-shadow: 0px 0px 13px 2px $light-grey;
+  border-radius: 6px;
 
   &--active {
     display: block;
@@ -182,11 +182,17 @@ $black: #333;
   // `last-of-type`
   li {
     &:first-of-type {
-      margin-top: 4px;
+      margin-top: 0px;
+      padding-top: 8px;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
     }
 
     &:last-of-type {
-      margin-bottom: 4px;
+      margin-bottom: 0px;
+      padding-bottom: 8px;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
     }
   }
 }
