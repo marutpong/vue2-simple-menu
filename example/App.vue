@@ -2,7 +2,7 @@
   <div id="app">
 
     <a
-      href="https://github.com/johndatserakis/vue-simple-context-menu"
+      href="https://github.com/marutpong/vue2-simple-menu"
       target="_blank"
       class="github-corner"
       aria-label="View source on Github"
@@ -33,7 +33,7 @@
     <div class="container py-4">
       <div class="row justify-content-center">
         <div class="col-lg-12 text-center">
-          <h3><strong>vue-simple-context-menu</strong></h3>
+          <h3><strong>vue2-simple-menu</strong></h3>
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
       <div class="row justify-content-center mb-4">
         <div class="col-lg-6">
           <span class="badge badge-primary mb-1">install</span>
-          <div class="code-text">npm i vue-simple-context-menu</div>
+          <div class="code-text">npm i vue2-simple-menu</div>
         </div>
       </div>
 
@@ -50,12 +50,12 @@
         <div class="col-lg-6">
           <div class="list-group">
             <a
-              href="https://github.com/johndatserakis/vue-simple-context-menu"
+              href="https://github.com/marutpong/vue2-simple-menu"
               class="list-group-item list-group-item-action"
               target="_blank"
             >View on GitHub</a>
             <a
-              href="https://www.npmjs.com/package/vue-simple-context-menu"
+              href="https://www.npmjs.com/package/vue2-simple-menu"
               class="list-group-item list-group-item-action"
               target="_blank"
             >View on NPM</a>
@@ -106,21 +106,19 @@
       </div>
     </div>
 
-    <vue-simple-context-menu
-      :elementId="'myFirstMenu'"
+    <vue2-simple-menu
       :options="optionsArray1"
       :ref="'vueSimpleContextMenu1'"
       @option-clicked="optionClicked1"
     >
-    </vue-simple-context-menu>
+    </vue2-simple-menu>
 
-    <vue-simple-context-menu
-      :elementId="'mySecondMenu'"
+    <vue2-simple-menu
       :options="optionsArray2"
       :ref="'vueSimpleContextMenu2'"
       @option-clicked="optionClicked2"
     >
-    </vue-simple-context-menu>
+    </vue2-simple-menu>
 
   </div>
 </template>
