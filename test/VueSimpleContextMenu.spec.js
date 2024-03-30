@@ -4,7 +4,6 @@ import VueSimpleContextMenu from '@/vue-simple-context-menu.vue'
 describe('VueSimpleContextMenu.vue', () => {
   it('Sets props correctly', async () => {
     let initialPropsData = {
-      elementId: 'myPanel1',
       options: [
         {
           name: 'Duplicate',
@@ -23,18 +22,15 @@ describe('VueSimpleContextMenu.vue', () => {
 
     const wrapper = shallowMount(VueSimpleContextMenu, {
       propsData: {
-        elementId: initialPropsData.elementId,
         options: initialPropsData.options
       }
     })
 
-    expect(wrapper.vm.elementId).toBe(initialPropsData.elementId)
     expect(wrapper.vm.options).toBe(initialPropsData.options)
   })
 
   it('Shows menu on click', async () => {
     let initialPropsData = {
-      elementId: 'myPanel1',
       options: [
         {
           name: 'Duplicate',
@@ -53,13 +49,16 @@ describe('VueSimpleContextMenu.vue', () => {
 
     const wrapper = shallowMount(VueSimpleContextMenu, {
       propsData: {
-        elementId: initialPropsData.elementId,
         options: initialPropsData.options
       }
     })
 
     // Make some test data
     var testEvent = new Event("click", { "bubbles": true, "cancelable": false });
+    testEvent = {
+      ...testEvent,
+      target: document.createElement("div")
+    }
     let testItem = { name: 'Jim', job: 'Salesman' }
 
     // Trigger the showing of the menu
@@ -72,7 +71,6 @@ describe('VueSimpleContextMenu.vue', () => {
 
   it('Emits event on menu item selection', async () => {
     let initialPropsData = {
-      elementId: 'myPanel1',
       options: [
         {
           name: 'Duplicate',
@@ -91,13 +89,16 @@ describe('VueSimpleContextMenu.vue', () => {
 
     const wrapper = shallowMount(VueSimpleContextMenu, {
       propsData: {
-        elementId: initialPropsData.elementId,
         options: initialPropsData.options
       }
     })
 
     // Make some test data
     var testEvent = new Event("click", { "bubbles": true, "cancelable": false });
+    testEvent = {
+      ...testEvent,
+      target: document.createElement("div")
+    }
     let testItem = { name: 'Jim', job: 'Salesman' }
 
     // Trigger the showing of the menu
