@@ -8,7 +8,7 @@ module.exports = {
   entry: './example/main.js',
   output: {
     path: path.resolve(__dirname, './docs'),
-    publicPath: (process.env.NODE_ENV === 'development') ? '/' : '/vue-simple-context-menu/',
+    publicPath: (process.env.NODE_ENV === 'development') ? '/' : '/vue2-simple-menu/',
     filename: 'build.js'
   },
   module: {
@@ -103,7 +103,7 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
-      title: 'vue-simple-context-menu',
+      title: 'vue2-simple-menu',
       template: './example/index.html'
     })
   ]

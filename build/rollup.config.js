@@ -11,7 +11,7 @@ const argv = minimist(process.argv.slice(2));
 const config = {
   input: 'src/index.js',
   output: {
-    name: 'VueSimpleContextMenu',
+    name: 'Vue2SimpleMenu',
     exports: 'named',
     globals: {
       'vue': 'Vue',
@@ -25,7 +25,7 @@ const config = {
       css: false,
       compileTemplate: true,
     }),
-    css({ output: 'dist/vue-simple-context-menu.css' }),
+    css({ output: 'dist/vue2-simple-menu.css' }),
     buble(),
   ],
   external: ['vue', 'v-click-outside']

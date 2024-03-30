@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils'
-import VueSimpleContextMenu from '@/vue-simple-context-menu.vue'
+import Vue2SimpleMenu from '@/vue2-simple-menu.vue'
 
-describe('VueSimpleContextMenu.vue', () => {
+describe('Vue2SimpleMenu.vue', () => {
   it('Sets props correctly', async () => {
     let initialPropsData = {
       options: [
@@ -20,7 +20,7 @@ describe('VueSimpleContextMenu.vue', () => {
       ]
     }
 
-    const wrapper = shallowMount(VueSimpleContextMenu, {
+    const wrapper = shallowMount(Vue2SimpleMenu, {
       propsData: {
         options: initialPropsData.options
       }
@@ -47,7 +47,7 @@ describe('VueSimpleContextMenu.vue', () => {
       ]
     }
 
-    const wrapper = shallowMount(VueSimpleContextMenu, {
+    const wrapper = shallowMount(Vue2SimpleMenu, {
       propsData: {
         options: initialPropsData.options
       }
@@ -87,7 +87,7 @@ describe('VueSimpleContextMenu.vue', () => {
       ]
     }
 
-    const wrapper = shallowMount(VueSimpleContextMenu, {
+    const wrapper = shallowMount(Vue2SimpleMenu, {
       propsData: {
         options: initialPropsData.options
       }

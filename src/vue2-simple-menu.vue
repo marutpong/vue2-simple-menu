@@ -2,15 +2,15 @@
   <div>
     <ul
       ref="simpleContextMenu"
-      class="vue-simple-context-menu"
+      class="vue2-simple-menu"
       v-click-outside="onClickOutside"
     >
       <li
         v-for="(option, index) in options"
         :key="index"
         @click.stop="optionClicked(option)"
-        class="vue-simple-context-menu__item"
-        :class="[option.class, (option.type === 'divider' ? 'vue-simple-context-menu__divider' : '')]"
+        class="vue2-simple-menu__item"
+        :class="[option.class, (option.type === 'divider' ? 'vue2-simple-menu__divider' : '')]"
       >
         <span v-html="option.name"></span>
       </li>
@@ -25,7 +25,7 @@ import vClickOutside from 'v-click-outside'
 Vue.use(vClickOutside)
 
 export default {
-  name: 'Vue2SimpleContextMenu',
+  name: 'Vue2SimpleMenu',
   props: {
     options: {
       type: Array,
@@ -68,7 +68,7 @@ export default {
       }
       this.updateXY(event.pageX, event.clientY)
 
-      menu.classList.add('vue-simple-context-menu--active')
+      menu.classList.add('vue2-simple-menu--active')
     },
     updateXY (x, y) {
       const menu = this.$refs.simpleContextMenu
@@ -93,7 +93,7 @@ export default {
 
       let element = this.$refs.simpleContextMenu
       if (element) {
-        element.classList.remove('vue-simple-context-menu--active')
+        element.classList.remove('vue2-simple-menu--active')
       }
     },
     onClickOutside () {
@@ -135,7 +135,7 @@ $blue: #4ab2e3;
 $white: #fff;
 $black: #333;
 
-.vue-simple-context-menu {
+.vue2-simple-menu {
   top: 0;
   left: 0;
   margin: 0;
