@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul
-      :id="elementId"
+      ref="simpleContextMenu"
       class="vue-simple-context-menu"
       v-click-outside="onClickOutside"
     >
@@ -27,10 +27,6 @@ Vue.use(vClickOutside)
 export default {
   name: 'VueSimpleContextMenu',
   props: {
-    elementId: {
-      type: String,
-      required: true
-    },
     options: {
       type: Array,
       required: true
@@ -47,7 +43,7 @@ export default {
     showMenu (event, item) {
       this.item = item
 
-      var menu = document.getElementById(this.elementId)
+      var menu = this.$refs.simpleContextMenu
       if (!menu) {
         return
       }
@@ -60,24 +56,32 @@ export default {
         menu.removeAttribute("style")
       }
 
-      if ((this.menuWidth + event.pageX) >= window.innerWidth) {
-        menu.style.left = (event.pageX - this.menuWidth + 2) + "px"
-      } else {
-        menu.style.left = (event.pageX - 2) + "px"
-      }
-
-      if ((this.menuHeight + event.pageY) >= window.innerHeight) {
-        menu.style.top = (event.pageY - this.menuHeight + 2) + "px"
-      } else {
-        menu.style.top = (event.pageY - 2) + "px"
-      }
+      this.updateXY(event.pageX, event.clientY)
 
       menu.classList.add('vue-simple-context-menu--active')
     },
+    updateXY (x, y) {
+      const menu = this.$refs.simpleContextMenu
+      if (!menu) {
+        return
+      }
+
+      if ((this.menuWidth + x) >= window.innerWidth) {
+        menu.style.left = (x - this.menuWidth + 2) + 'px'
+      } else {
+        menu.style.left = (x - 2) + 'px'
+      }
+
+      if ((this.menuHeight + y) >= window.innerHeight) {
+        menu.style.top = (y - this.menuHeight + 2) + 'px'
+      } else {
+        menu.style.top = (y - 2) + 'px'
+      }
+    },
     hideContextMenu () {
-      let element = document.getElementById(this.elementId)
+      let element = this.$refs.simpleContextMenu
       if (element) {
-        element.classList.remove('vue-simple-context-menu--active');
+        element.classList.remove('vue-simple-context-menu--active')
       }
     },
     onClickOutside () {
@@ -119,7 +123,7 @@ $black: #333;
   padding: 0;
   display: none;
   list-style: none;
-  position: absolute;
+  position: fixed;
   z-index: 1000000;
   background-color: $light-grey;
   border-bottom-width: 0px;
