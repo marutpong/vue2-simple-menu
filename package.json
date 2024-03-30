@@ -1,6 +1,6 @@
 {
   "name": "vue2-simple-menu",
-  "version": "3.4.1",
+  "version": "3.5.0",
   "description": "Simple context-menu component built for Vue. Works well with both left and right clicks. Nothing too fancy, just works and is simple to use.",
   "author": "Marutpong Chailangka <marutpong08@gmail.com>",
   "license": "MIT",

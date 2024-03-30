@@ -1,5 +1,12 @@
 # CHANGELOG.md
 
+## 3.5.0
+
+- `elementId` is not need anymore.
+- Fixed out of scrren displaying issue.
+- Fixed the menu's position when scrolling.
+- Updated styling.
+
 ## 3.4.1
 
 - Add support for HTML content in `option.name`. Thank you @mikeerickson.

@@ -5,12 +5,8 @@ import vClickOutside from 'v-click-outside';
 Vue.use(vClickOutside);
 
 var script = {
-  name: 'VueSimpleContextMenu',
+  name: 'Vue2SimpleMenu',
   props: {
-    elementId: {
-      type: String,
-      required: true
-    },
     options: {
       type: Array,
       required: true
@@ -20,14 +16,16 @@ var script = {
     return {
       item: null,
       menuWidth: null,
-      menuHeight: null
+      menuHeight: null,
+      triggerEl: null,
+      triggerOffset: {x: 0, y: 0}
     }
   },
   methods: {
     showMenu: function showMenu (event, item) {
       this.item = item;
 
-      var menu = document.getElementById(this.elementId);
+      var menu = this.$refs.simpleContextMenu;
       if (!menu) {
         return
       }
@@ -40,24 +38,44 @@ var script = {
         menu.removeAttribute("style");
       }
 
-      if ((this.menuWidth + event.pageX) >= window.innerWidth) {
-        menu.style.left = (event.pageX - this.menuWidth + 2) + "px";
-      } else {
-        menu.style.left = (event.pageX - 2) + "px";
+      document.addEventListener('scroll', this.onScroll);
+
+      var ref = event.target.getBoundingClientRect();
+      var top = ref.top;
+      var left = ref.left;
+      this.triggerEl = event.target;
+      this.triggerOffset = {
+        x: event.pageX - left,
+        y: event.clientY - top,
+      };
+      this.updateXY(event.pageX, event.clientY);
+
+      menu.classList.add('vue2-simple-menu--active');
+    },
+    updateXY: function updateXY (x, y) {
+      var menu = this.$refs.simpleContextMenu;
+      if (!menu) {
+        return
       }
 
-      if ((this.menuHeight + event.pageY) >= window.innerHeight) {
-        menu.style.top = (event.pageY - this.menuHeight + 2) + "px";
+      if ((this.menuWidth + x) >= window.innerWidth) {
+        menu.style.left = (x - this.menuWidth + 2) + 'px';
       } else {
-        menu.style.top = (event.pageY - 2) + "px";
+        menu.style.left = (x - 2) + 'px';
       }
 
-      menu.classList.add('vue-simple-context-menu--active');
+      if ((this.menuHeight + y) >= window.innerHeight) {
+        menu.style.top = (y - this.menuHeight + 2) + 'px';
+      } else {
+        menu.style.top = (y - 2) + 'px';
+      }
     },
     hideContextMenu: function hideContextMenu () {
-      var element = document.getElementById(this.elementId);
+      document.removeEventListener('scroll', this.onScroll);
+
+      var element = this.$refs.simpleContextMenu;
       if (element) {
-        element.classList.remove('vue-simple-context-menu--active');
+        element.classList.remove('vue2-simple-menu--active');
       }
     },
     onClickOutside: function onClickOutside () {
@@ -74,13 +92,22 @@ var script = {
       if (event.keyCode === 27) {
         this.hideContextMenu();
       }
-    }
+    },
+    onScroll: function onScroll (_event) {
+      if (this.triggerEl) {
+        var ref = this.triggerEl.getBoundingClientRect();
+        var top = ref.top;
+        var left = ref.left;
+        this.updateXY(left + this.triggerOffset.x, top + this.triggerOffset.y);
+      }
+    },
   },
   mounted: function mounted () {
     document.body.addEventListener('keyup', this.onEscKeyRelease);
   },
   beforeDestroy: function beforeDestroy () {
     document.removeEventListener('keyup', this.onEscKeyRelease);
+    document.removeEventListener('scroll', this.onScroll);
   }
 };
 
@@ -162,7 +189,7 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
 /* script */
 var __vue_script__ = script;
 /* template */
-var __vue_render__ = function() {
+var __vue_render__ = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
@@ -175,37 +202,32 @@ var __vue_render__ = function() {
             name: "click-outside",
             rawName: "v-click-outside",
             value: _vm.onClickOutside,
-            expression: "onClickOutside"
-          }
-        ],
-        staticClass: "vue-simple-context-menu",
-        attrs: { id: _vm.elementId }
+            expression: "onClickOutside",
+          } ],
+        ref: "simpleContextMenu",
+        staticClass: "vue2-simple-menu",
       },
-      _vm._l(_vm.options, function(option, index) {
+      _vm._l(_vm.options, function (option, index) {
         return _c(
           "li",
           {
             key: index,
-            staticClass: "vue-simple-context-menu__item",
+            staticClass: "vue2-simple-menu__item",
             class: [
               option.class,
-              option.type === "divider"
-                ? "vue-simple-context-menu__divider"
-                : ""
-            ],
+              option.type === "divider" ? "vue2-simple-menu__divider" : "" ],
             on: {
-              click: function($event) {
+              click: function ($event) {
                 $event.stopPropagation();
                 return _vm.optionClicked(option)
-              }
-            }
+              },
+            },
           },
           [_c("span", { domProps: { innerHTML: _vm._s(option.name) } })]
         )
       }),
       0
-    )
-  ])
+    ) ])
 };
 var __vue_staticRenderFns__ = [];
 __vue_render__._withStripped = true;
@@ -245,7 +267,7 @@ __vue_render__._withStripped = true;
 function install (Vue) {
   if (install.installed) { return; }
   install.installed = true;
-  Vue.component('VueSimpleContextMenu', __vue_component__);
+  Vue.component('Vue2SimpleMenu', __vue_component__);
 }
 
 // Create module definition for Vue.use()
