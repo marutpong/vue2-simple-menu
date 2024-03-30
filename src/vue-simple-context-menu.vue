@@ -36,7 +36,9 @@ export default {
     return {
       item: null,
       menuWidth: null,
-      menuHeight: null
+      menuHeight: null,
+      triggerEl: null,
+      triggerOffset: {x: 0, y: 0}
     }
   },
   methods: {
@@ -56,6 +58,14 @@ export default {
         menu.removeAttribute("style")
       }
 
+      document.addEventListener('scroll', this.onScroll)
+
+      const {top, left} = event.target.getBoundingClientRect()
+      this.triggerEl = event.target
+      this.triggerOffset = {
+        x: event.pageX - left,
+        y: event.clientY - top,
+      }
       this.updateXY(event.pageX, event.clientY)
 
       menu.classList.add('vue-simple-context-menu--active')
@@ -79,6 +89,8 @@ export default {
       }
     },
     hideContextMenu () {
+      document.removeEventListener('scroll', this.onScroll)
+
       let element = this.$refs.simpleContextMenu
       if (element) {
         element.classList.remove('vue-simple-context-menu--active')
@@ -98,13 +110,20 @@ export default {
       if (event.keyCode === 27) {
         this.hideContextMenu();
       }
-    }
+    },
+    onScroll (_event) {
+      if (this.triggerEl) {
+        const {top, left} = this.triggerEl.getBoundingClientRect()
+        this.updateXY(left + this.triggerOffset.x, top + this.triggerOffset.y)
+      }
+    },
   },
   mounted () {
     document.body.addEventListener('keyup', this.onEscKeyRelease);
   },
   beforeDestroy () {
     document.removeEventListener('keyup', this.onEscKeyRelease);
+    document.removeEventListener('scroll', this.onScroll)
   }
 }
 </script>
