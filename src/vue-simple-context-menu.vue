@@ -25,7 +25,7 @@ import vClickOutside from 'v-click-outside'
 Vue.use(vClickOutside)
 
 export default {
-  name: 'VueSimpleContextMenu',
+  name: 'Vue2SimpleContextMenu',
   props: {
     options: {
       type: Array,
